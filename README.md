@@ -7,7 +7,6 @@ Vytha Lab is a comprehensive, multi-platform health and fitness tracking applica
 *   [Key Features](#key-features)
 *   [Technology Stack](#technology-stack)
 *   [Project Structure](#project-structure)
-*   [Getting Started](#getting-started)
 *   [Privacy & Terms](#privacy-and-terms)
     *   [Privacy Policy Draft](#privacy-policy-draft)
     *   [Terms of Use](#terms-of-use)
@@ -68,49 +67,6 @@ vytha_lab/
 │   └── main.dart          # Application entry point
 ├── assets/                # Fonts, images, videos, audios, and JSON data
 └── python_scripts         # Various utility scripts (e.g., fix_appbars.py, patch_onboarding.py) for codebase maintenance
-```
-
-<a id="getting-started"></a>
-
-## 🏁 Getting Started
-
-### Prerequisites
-
-*   Install [Flutter SDK](https://flutter.dev/docs/get-started/install) (Ensure it meets the version requirement in `pubspec.yaml`: `>=3.0.0 <4.0.0`).
-*   Install [Dart SDK](https://dart.dev/get-dart).
-*   Set up an IDE (VS Code, Android Studio, or IntelliJ) with Flutter & Dart plugins.
-*   *(Optional)* Install [Firebase CLI](https://firebase.google.com/docs/cli) if you need to deploy or test Cloud Functions.
-
-### Installation
-
-1.  **Clone the repository** (if you haven't already):
-    ```bash
-    git clone <repository-url>
-    cd vytha_lab
-    ```
-
-2.  **Install Flutter dependencies**:
-    ```bash
-    flutter pub get
-    ```
-
-3.  **Install Firebase Cloud Functions dependencies** (if working on the backend):
-    ```bash
-    cd functions
-    npm install
-    cd ..
-    ```
-
-### Running the App
-
-To run the app on an emulator, connected device, or web browser:
-
-```bash
-# Run on default device
-flutter run
-
-# Run on a specific device/platform
-flutter run -d chrome
 ```
 
 <a id="privacy-and-terms"></a>
