@@ -1,338 +1,271 @@
-# Privacy Policy for VythaLab - ENGLISH
+# Vytha Lab
+
+Vytha Lab is a comprehensive, multi-platform health and fitness tracking application built with Flutter. It integrates various wellness features including workout tracking, AI-powered meal planning, biometric data monitoring, and daily habit tracking.
+
+## 📚 Menu
+
+*   [Key Features](#key-features)
+*   [Technology Stack](#technology-stack)
+*   [Project Structure](#project-structure)
+*   [Getting Started](#getting-started)
+*   [Privacy & Terms](#privacy-and-terms)
+    *   [Privacy Policy Draft](#privacy-policy-draft)
+    *   [Terms of Use](#terms-of-use)
+*   [Utility Scripts](#utility-scripts)
+*   [License](#license)
+
+<a id="key-features"></a>
+
+## 🚀 Key Features
+
+*   **Dashboard & Daily Tracking**: A central hub (`dashboard_hoje`) for an overview of daily progress.
+*   **Workout & Performance**:
+    *   **Workout Tracker**: Track active workouts and view exercise history.
+    *   **Routine Builder**: Create custom workout routines.
+    *   **Exercise Library**: A database of exercises.
+    *   **Performance Hub**: Monitor fitness progression and metrics.
+    *   **Yoga**: Specialized tracking for yoga sessions.
+*   **Nutrition & Diet**:
+    *   **AI Meal Planner**: Generate meal plans utilizing AI.
+    *   **AI Macro Tracker**: Track and analyze macronutrient intake.
+*   **Health & Biometrics**:
+    *   **Biometrics Dashboard**: Track vital health metrics and measurements.
+    *   **Evolution Progress**: Visualize physical changes over time.
+    *   **Pedometer Integration**: Track daily steps directly via device sensors.
+*   **Habit Tracking**: Local notifications and habit reminders to keep users on track.
+*   **User Profile**: Comprehensive user data management and onboarding flow (`onboarding_glitch_intro`).
 
-Last updated: June 7, 2026
+<a id="technology-stack"></a>
+
+## 🛠️ Technology Stack
+
+*   **Frontend Framework**: Flutter (Dart)
+*   **State Management & Routing**: `provider`, `go_router`
+*   **Local Database**: SQLite (`sqflite`) for on-device data storage.
+*   **Backend & Cloud Services**: Firebase (Authentication, Cloud Functions).
+*   **UI/UX**: Custom components, `flutter_animate`, `fl_chart` for data visualization, `lottie` for animations, and custom shaders.
+*   **Native Integrations**: `pedometer`, `flutter_local_notifications`, `permission_handler`, `url_launcher`.
+*   **Architecture**: Originates from/utilizes FlutterFlow patterns (as seen in `lib/flutter_flow/`).
+
+<a id="project-structure"></a>
+
+## 📂 Project Structure
+
+```text
+vytha_lab/
+├── android/               # Android native project files
+├── ios/                   # iOS native project files
+├── web/                   # Web project files
+├── functions/             # Firebase Cloud Functions (TypeScript)
+├── lib/                   # Main Dart source code
+│   ├── backend/           # Local SQLite database configurations
+│   ├── components/        # Reusable UI widgets (cards, charts, buttons, etc.)
+│   ├── flutter_flow/      # Base utilities and theme files from FlutterFlow
+│   ├── models/            # Data models (e.g., biometrics_snapshot)
+│   ├── pages/             # App screens (Dashboard, Meal Planner, Workout Tracker, etc.)
+│   ├── services/          # Business logic and external service integrations
+│   ├── app_state.dart     # Global application state
+│   └── main.dart          # Application entry point
+├── assets/                # Fonts, images, videos, audios, and JSON data
+└── python_scripts         # Various utility scripts (e.g., fix_appbars.py, patch_onboarding.py) for codebase maintenance
+```
+
+<a id="getting-started"></a>
+
+## 🏁 Getting Started
+
+### Prerequisites
+
+*   Install [Flutter SDK](https://flutter.dev/docs/get-started/install) (Ensure it meets the version requirement in `pubspec.yaml`: `>=3.0.0 <4.0.0`).
+*   Install [Dart SDK](https://dart.dev/get-dart).
+*   Set up an IDE (VS Code, Android Studio, or IntelliJ) with Flutter & Dart plugins.
+*   *(Optional)* Install [Firebase CLI](https://firebase.google.com/docs/cli) if you need to deploy or test Cloud Functions.
+
+### Installation
+
+1.  **Clone the repository** (if you haven't already):
+    ```bash
+    git clone <repository-url>
+    cd vytha_lab
+    ```
+
+2.  **Install Flutter dependencies**:
+    ```bash
+    flutter pub get
+    ```
+
+3.  **Install Firebase Cloud Functions dependencies** (if working on the backend):
+    ```bash
+    cd functions
+    npm install
+    cd ..
+    ```
 
-VythaLab is a fitness, nutrition, habits, and performance app. This Privacy Policy explains what information VythaLab collects, how it is used, when it may be shared, and the choices you have.
+### Running the App
 
-This app is intended for general wellness and fitness support. It is not a medical device, does not provide medical diagnosis or treatment, and should not replace advice from a qualified health professional.
+To run the app on an emulator, connected device, or web browser:
 
-## Who We Are
+```bash
+# Run on default device
+flutter run
 
-For this policy, "VythaLab," "we," "us," or "our" means the operator of the VythaLab app.
+# Run on a specific device/platform
+flutter run -d chrome
+```
 
-Contact: privacy@vythalab.com
+<a id="privacy-and-terms"></a>
 
-## Information We Collect
+## 🔒 Privacy & Terms
 
-VythaLab is designed to store much of your information locally on your device. Depending on how you use the app, we may collect or process the following categories of information:
+Vytha Lab handles personal wellness information, so privacy and responsible use should be treated as core product requirements. This section is a project-level notice and should be replaced with a reviewed Privacy Policy and Terms of Use before any public release.
 
-### Profile and Fitness Data
+<a id="privacy-policy-draft"></a>
 
-- Name or display name.
-- Age, sex, height, weight, body-fat percentage, goals, activity level, and selected plan.
-- Workout sessions, routines, exercise selections, weekly workout schedule, active workout progress, and workout history.
-- Habit names, habit categories, reminder settings, selected days, completion logs, and streak information.
-- Nutrition entries, meal descriptions, calories, macronutrients, fiber, meal plans, and AI-generated meal suggestions.
-- Step count from your device's activity sensors, if you grant activity-recognition permission.
-- Manually entered sleep duration.
+### Privacy Policy Draft
 
-Some of this information may be considered health, biometric, or sensitive personal information under privacy laws.
+This draft describes the intended privacy practices for Vytha Lab. It should be reviewed against the actual production build, connected services, app-store disclosures, and applicable laws before release. Public builds should provide an official privacy-policy URL, support contact, legal entity name, and in-app access to the final policy.
 
-### Device, App, and Permission Data
+#### Scope
 
-We may process technical data needed to operate the app, such as:
+*   **Covered services**: This policy applies to the Vytha Lab Flutter app, local app storage, Firebase-backed features, Cloud Functions, AI-assisted nutrition features, notification features, pedometer integration, and related support workflows.
+*   **Responsible party**: The final public policy should identify the developer, company, or legal entity responsible for user data.
+*   **Health-data caution**: Vytha Lab handles wellness, fitness, nutrition, and biometric information. Do not describe the app as HIPAA-compliant, medically certified, or suitable for clinical use unless that status has been legally and technically validated.
 
-- Device permission status for notifications and activity recognition.
-- Local timezone information used to schedule reminders.
-- App state, preferences, privacy-mode setting, notification settings, and local storage records.
-- Technical metadata generated when the app calls Firebase Cloud Functions or other app infrastructure, such as request metadata that may be processed by service providers for security, debugging, abuse prevention, and service delivery.
+#### Information Vytha Lab May Collect
 
-### AI Prompt Data
+*   **Account and profile data**: Name, email address, authentication identifiers, display preferences, onboarding responses, goals, biological or lifestyle attributes the user chooses to provide, and profile settings.
+*   **Fitness and workout data**: Exercise history, workout sessions, custom routines, sets, reps, weights, duration, performance metrics, yoga sessions, recovery notes, and training preferences.
+*   **Nutrition and AI inputs**: Meal-planning prompts, food preferences, allergies or restrictions entered by the user, macro targets, food logs, generated meal plans, and nutrition-analysis history.
+*   **Biometric and progress data**: Body measurements, progress snapshots, evolution records, weight or composition entries, health-related notes, and progress photos if enabled by the app.
+*   **Habit and reminder data**: Habit names, completion history, streaks, reminder schedules, local notification preferences, and wellness routines.
+*   **Device and sensor data**: Step-count information from pedometer sensors, permission status, timezone data, device identifiers, platform details, and other data required for native integrations.
+*   **Technical and diagnostic data**: App version, crash logs, performance diagnostics, Cloud Function logs, security events, and basic usage events if analytics or crash reporting are enabled.
+*   **Support communications**: Messages, screenshots, bug reports, contact details, or other information users provide when requesting help.
 
-When you use AI features, the text and structured inputs needed for that feature may be sent to our backend and AI service providers. Examples include:
+#### How Data Is Collected
 
-- Food descriptions used to estimate macros.
-- Current meal details and target calories used to suggest substitutions.
-- Nutrition targets used to recalculate meal plans.
-- Workout goals, target muscles, available equipment, and available exercise lists used to generate routines.
+*   **Direct user input**: Data entered through onboarding, profile forms, trackers, planners, dashboards, and settings.
+*   **Device permissions**: Data accessed through platform permissions such as sensors, notifications, or external-link handling. Users can manage permissions in their device settings.
+*   **Generated data**: Calculations, summaries, charts, recommendations, and AI outputs created from user activity or user-provided inputs.
+*   **Service integrations**: Data processed through Firebase, Cloud Functions, AI providers, analytics, crash reporting, or other configured third-party services.
 
-Do not enter information into AI prompts that you do not want processed by third-party AI infrastructure.
+#### How Data May Be Used
 
-## How We Use Information
+*   **Core app functionality**: Authenticate users, store preferences, track workouts, manage routines, display dashboards, calculate progress, and sync cloud-backed features.
+*   **Personalization**: Adapt goals, nutrition suggestions, habit reminders, performance summaries, and UI content to user-provided preferences.
+*   **AI-assisted features**: Generate meal plans, macro feedback, summaries, and wellness suggestions from the information users choose to submit.
+*   **Notifications**: Schedule habit reminders, workout prompts, and local alerts selected by the user.
+*   **Safety, debugging, and maintenance**: Diagnose issues, prevent abuse, protect accounts, maintain service reliability, and fix defects.
+*   **Compliance**: Respond to lawful requests, enforce terms, and meet legal or regulatory obligations where applicable.
+*   **Product improvement**: Analyze aggregated or de-identified information where possible to improve features, performance, and usability.
 
-We use information to:
+#### Sensitive Health Data Commitments
 
-- Provide nutrition tracking, macro estimates, meal plans, and meal substitutions.
-- Provide workout planning, routine building, active workout tracking, and performance summaries.
-- Provide habit tracking, weekly reports, and local reminders.
-- Show biometrics such as steps and manually entered sleep.
-- Store your settings and preferences.
-- Improve reliability, security, and app functionality.
-- Respond to support, privacy, or legal requests.
+*   **Data minimization**: Collect only the wellness, fitness, biometric, nutrition, and sensor data needed for the features a user chooses to use.
+*   **Consent before sensitive processing**: Obtain clear consent before collecting or sharing sensitive health data, especially when a feature uses device sensors, cloud processing, or third-party AI.
+*   **No sale of health data**: Health, biometric, nutrition, and workout data should not be sold to data brokers or used for targeted advertising.
+*   **No unexpected sharing**: Sensitive data should not be shared for marketing, advertising, model training, or unrelated product purposes unless the final policy clearly discloses it and the user gives explicit consent.
+*   **Just-in-time notices**: Public builds should explain sensitive collection at the moment it occurs, not only inside this README or a long policy page.
 
-We do not use your data to make decisions that produce legal or similarly significant effects. AI output is informational and should be reviewed by you before relying on it.
+#### AI and Cloud Processing
 
-## Local Storage
+*   **AI data flow**: AI-powered meal planning and macro analysis may send user-provided goals, preferences, nutrition details, and related context to an AI service to generate results.
+*   **Provider disclosure**: Public builds should identify each AI provider, what data is sent, whether the provider stores prompts or outputs, whether humans may review data, and whether data may be used for model training.
+*   **Limited AI context**: AI requests should avoid unnecessary identifiers, account data, photos, or biometric details unless those inputs are required for the selected feature.
+*   **User review**: AI output should be treated as a suggestion. Users remain responsible for checking nutrition, allergy, medical, and safety implications before acting on it.
 
-VythaLab stores app data on your device using local storage such as SharedPreferences and SQLite. This includes profile settings, nutrition logs, meal plans, habits, workouts, schedules, and local app preferences.
+#### Data Sharing
 
-Local data remains on your device unless you delete it through the app, delete individual records, clear app data through your operating system, or uninstall the app. If you back up your device through your operating system or a third-party backup provider, your local app data may be included in that backup according to your backup settings.
+*   **Service providers**: Data may be processed by Firebase, hosting providers, authentication providers, Cloud Functions, AI vendors, analytics tools, crash reporting tools, or notification infrastructure used to operate the app.
+*   **Legal and safety needs**: Data may be disclosed when required by law, to protect users, to investigate abuse, or to defend the rights and security of the app.
+*   **Business changes**: If ownership of the app changes, user data may be transferred as part of that transaction, subject to notice and applicable law.
+*   **No public posting by default**: Private health, nutrition, workout, and biometric records should not be made public unless the user intentionally chooses a sharing feature.
+*   **Third-party terms**: Third-party services may process data under their own terms and privacy policies. Public builds should link to those providers where practical.
 
-## Cloud Processing and Service Providers
+#### Storage, Retention, and Deletion
 
-VythaLab uses Firebase and Google Cloud infrastructure for app initialization, security, and callable Cloud Functions. AI features are processed through Firebase Cloud Functions and an AI provider using the DeepSeek API.
+*   **Local storage**: Some records are stored on the user's device using SQLite or platform storage. Local data may remain on the device until the user deletes it, clears app data, or uninstalls the app.
+*   **Cloud storage**: Firebase-backed features may store account, profile, function, or synced app data in cloud systems.
+*   **Retention principle**: Data should be retained only for as long as needed to provide the app, comply with legal obligations, resolve disputes, maintain backups, or support security and debugging.
+*   **Deletion requests**: Public builds should provide a clear way to request account deletion, cloud-data deletion, and correction of inaccurate personal data.
+*   **Backup limits**: Deleted data may remain in encrypted backups or logs for a limited period before being purged according to the provider's retention process.
 
-We do not intentionally store AI prompts or AI responses in a cloud database in the current implementation. However, service providers may process and retain technical logs or request metadata according to their own policies and legal obligations.
+#### User Choices and Rights
 
-Service providers may include:
+*   **Access and correction**: Users should be able to view and update profile, goal, workout, nutrition, habit, and biometric information where the app supports it.
+*   **Permission controls**: Users can revoke sensor, notification, and other platform permissions through device settings. Some features may stop working when permissions are disabled.
+*   **AI controls**: Public builds should disclose whether AI features are optional and how users can avoid sending sensitive data to AI services.
+*   **Analytics choices**: If non-essential analytics are enabled, public builds should explain opt-out controls where required.
+*   **Legal rights**: Depending on location, users may have rights to access, delete, correct, export, restrict, or object to processing of personal information. The final policy should document how to exercise those rights.
 
-- Google Firebase and Google Cloud services.
-- DeepSeek or compatible AI API providers used for nutrition and workout generation.
-- Mobile operating system and app store providers.
+#### Security
 
-These providers may process information in countries other than your country of residence.
+*   **Transport security**: Cloud traffic should use secure transport such as HTTPS/TLS.
+*   **Access controls**: Cloud data should be protected with appropriate authentication, authorization rules, least-privilege service accounts, and secure secret management.
+*   **Operational safeguards**: Production releases should include dependency review, logging hygiene, crash-report review, Firebase security-rule review, and incident-response procedures.
+*   **No absolute guarantee**: No app can guarantee perfect security, so the final policy should explain security practices without overpromising.
 
-## Notifications
+#### Children and Minors
 
-VythaLab currently uses local notifications for habit reminders. Reminder schedules are configured on your device. The app may request notification, exact-alarm, vibration, and boot-completed permissions so reminders can appear at the requested time and continue after a device restart.
+*   **Age limits**: Vytha Lab is not intended for children under 13, or under the minimum age required by local law, unless a parent or guardian provides any required consent.
+*   **Minor data**: Public builds that knowingly support minors should include age-appropriate notices, parental consent flows, and child-data deletion procedures.
+*   **Discovery of child data**: If the project owner learns that child data was collected without required consent, the data should be deleted or deactivated according to applicable law.
 
-If future versions add cloud push notifications, this policy should be updated to describe push tokens, cloud notification delivery, and related service providers.
+#### International Data Processing
 
-## Activity Recognition and Biometrics
+*   **Cross-border processing**: Cloud providers, AI services, and support tools may process data in countries other than the user's country of residence.
+*   **Safeguards**: Public builds should describe applicable transfer safeguards, regional hosting choices, and provider commitments where required by law.
 
-If you grant activity-recognition permission, VythaLab reads step-count data from your device's pedometer APIs to calculate daily steps. Sleep data is manually entered by you. VythaLab does not currently collect continuous heart-rate data, GPS location routes, camera images, or microphone recordings as part of the tracked features described in this policy.
+#### Policy Changes
 
-## Sharing of Information
+*   **Updates**: The privacy policy should be updated whenever the app's data collection, sharing, AI processing, analytics, permissions, or service providers change.
+*   **Material changes**: If a change materially affects user privacy, users should receive clear notice and, where required, provide affirmative consent before the new use applies.
+*   **Consistency**: The README, in-app policy, app-store privacy labels, Google Play Data Safety form, consent prompts, and actual app behavior should remain aligned.
 
-We do not sell your personal information.
+#### Release Checklist
 
-We may share or disclose information:
+Before publishing Vytha Lab, add or verify:
 
-- With service providers that help operate the app, cloud functions, security systems, and AI features.
-- When you intentionally submit data to an AI feature.
-- If required by law, regulation, legal process, or a valid government request.
-- To protect the rights, safety, and security of users, VythaLab, or others.
-- In connection with a merger, acquisition, financing, restructuring, or sale of assets, subject to appropriate protections.
+*   Official legal entity name, contact email, and support/data-request process.
+*   Final Privacy Policy URL available in the app and app-store listings.
+*   Provider list for Firebase, AI services, analytics, crash reporting, and any SDKs.
+*   Exact data-retention schedule for local data, cloud data, logs, and backups.
+*   Account deletion and data deletion flow.
+*   App Store privacy details and Google Play Data Safety disclosures matching the real build.
+*   In-app consent prompts for health data, sensor access, AI processing, and optional analytics.
 
-We do not currently use third-party advertising networks in the app.
+<a id="terms-of-use"></a>
 
-## Your Choices
+### Terms of Use
 
-You can:
+These draft terms describe the expected rules for using Vytha Lab. They are intended for product documentation and should be reviewed before being presented to end users.
 
-- Decline or revoke notification permission in your device settings.
-- Decline or revoke activity-recognition permission in your device settings.
-- Avoid using AI features if you do not want prompts or related inputs sent to cloud and AI providers.
-- Edit or delete local records where the app provides controls.
-- Export supported local app-state data from the profile/privacy area.
-- Clear local app data through the app where available, through operating system settings, or by uninstalling the app.
+*   **Acceptance of terms**: By accessing or using Vytha Lab, users agree to use the app in accordance with these terms and any additional notices shown in the app.
+*   **Wellness tool only**: Vytha Lab provides fitness, nutrition, habit, and wellness tracking support. It does not provide medical advice, diagnosis, treatment, emergency care, or a substitute for professional judgment.
+*   **Professional guidance**: Users should consult qualified health professionals before making significant changes to exercise, diet, medication, treatment, or recovery plans, especially if they have existing health conditions.
+*   **User responsibility**: Users are responsible for the information they enter, the goals they set, and how they apply workout, nutrition, habit, or AI-generated recommendations.
+*   **AI-generated content**: Meal plans, macro analysis, coaching text, or other AI-assisted outputs may be incomplete, inaccurate, or unsuitable for a user's specific medical, dietary, cultural, or personal needs. Users should verify recommendations before relying on them.
+*   **Account security**: Users are responsible for maintaining the confidentiality of their login credentials, device access, and any activity that occurs under their account.
+*   **Permitted use**: Users may not misuse the app, attempt to disrupt its services, reverse engineer protected portions of the app, upload unlawful or harmful content, or use the app in a way that violates applicable laws or third-party rights.
+*   **Health and sensor data**: Users authorize the app to process health, biometric, nutrition, workout, notification, and device-sensor data only for the features they choose to use, subject to the app's privacy notices and permission settings.
+*   **Notifications**: Habit reminders, workout prompts, and other notifications are convenience features. Users remain responsible for managing their schedules, safety, and device settings.
+*   **Third-party services**: Vytha Lab may rely on services such as Firebase, AI providers, analytics, crash reporting, device APIs, or external links. Those services may be governed by their own terms and privacy policies.
+*   **Intellectual property**: The app, codebase, design assets, trademarks, content, and documentation belong to their respective owners. No rights are granted except as expressly allowed by the project owner or applicable licenses.
+*   **Availability and changes**: Features may be changed, suspended, or removed during development. The app may contain bugs, incomplete features, or experimental behavior.
+*   **No guarantee of results**: Fitness, nutrition, and wellness outcomes vary by individual, and the app does not guarantee specific results, performance improvements, health outcomes, or uninterrupted availability.
+*   **Limitation of liability**: To the fullest extent permitted by law, the project owner and contributors are not responsible for indirect, incidental, consequential, or health-related damages arising from use of the app.
+*   **Termination**: Access may be suspended or removed if a user violates these terms, creates security risk, misuses the service, or if the app is discontinued.
+*   **Contact and legal review**: Public builds should include an official support contact, governing law, dispute-resolution process, and legally reviewed Privacy Policy and Terms of Use.
+*   **Private package**: This repository is configured as a private package and is not currently licensed for public redistribution.
 
-Some local SQLite records, such as workouts or habits, may require using the relevant in-app delete controls or clearing/uninstalling the app to remove them fully.
+<a id="utility-scripts"></a>
 
-## Data Retention
+## 📜 Utility Scripts
 
-Local app data is retained on your device until you delete it, clear app data, or uninstall the app.
+The project root contains several Python scripts (e.g., `fix_appbars.py`, `patch_onboarding.py`, `wrap_scaffold.py`). These are custom utility scripts likely used to perform bulk modifications, fix UI inconsistencies, or patch specific widget structures across the codebase. Run these with caution and ensure you review changes via Git.
 
-Cloud Functions and AI providers may retain limited technical records, logs, or request metadata for security, debugging, abuse prevention, legal compliance, and service operation. Retention periods are controlled by the relevant provider unless we configure them differently.
+<a id="license"></a>
 
-## Security
+## 📝 License
 
-We use reasonable technical and organizational safeguards appropriate for a wellness app, including Firebase App Check enforcement for protected Cloud Functions. No method of transmission or storage is completely secure, and we cannot guarantee absolute security.
-
-You are responsible for protecting access to your device, device backups, and any accounts or systems you use to store or sync your data.
-
-## International Transfers
-
-Your information may be processed in the United States, Brazil, or other countries where our service providers operate. These countries may have data-protection laws that differ from those in your jurisdiction.
-
-## Legal Bases and Privacy Rights
-
-Depending on where you live, we may process your personal information based on:
-
-- Your consent, such as when you grant permissions or submit AI prompts.
-- Performance of the app services you request.
-- Legitimate interests, such as security, debugging, fraud prevention, and service improvement.
-- Legal obligations.
-
-If privacy laws such as the LGPD, GDPR, CCPA/CPRA, or similar laws apply to you, you may have rights to request access, confirmation of processing, correction, deletion, portability, information about sharing, restriction, objection, or withdrawal of consent.
-
-To make a privacy request, contact us at privacy@vythalab.com. We may need to verify your request before responding. Some requests may be limited where data is stored only on your device and we do not have access to it.
-
-## Children's Privacy
-
-VythaLab is not intended for children under 13 years old, or a higher age where required by local law. We do not knowingly collect personal information from children. If you believe a child has provided personal information through the app, contact us so we can take appropriate steps.
-
-## Health and Medical Disclaimer
-
-Nutrition estimates, meal suggestions, workout suggestions, habit reminders, readiness scores, and performance summaries are informational. They may be incomplete, inaccurate, or inappropriate for your individual health circumstances. Consult a healthcare professional before making significant changes to diet, exercise, sleep, medication, or health routines.
-
-## Changes to This Policy
-
-We may update this Privacy Policy from time to time. When we make changes, we will update the "Last updated" date above. If changes are material, we may provide additional notice in the app or through another appropriate method.
-
-## Contact
-
-For questions, requests, or concerns about this Privacy Policy, contact:contato@vythalab.com.br
-
-# Política de Privacidade da VythaLab  - Portugues
-
-Última atualização: 7 de junho de 2026
-
-A VythaLab é um aplicativo de fitness, nutrição, hábitos e performance. Esta Política de Privacidade explica quais informações a VythaLab coleta, como elas são usadas, quando podem ser compartilhadas e quais escolhas você tem.
-
-Este aplicativo é destinado ao apoio geral de bem-estar e condicionamento físico. Ele não é um dispositivo médico, não fornece diagnóstico ou tratamento médico e não substitui a orientação de um profissional de saúde qualificado.
-
-## Quem Somos
-
-Nesta política, "VythaLab", "nós", "nosso" ou "nossa" se refere ao operador do aplicativo VythaLab.
-
-Contato: privacy@vythalab.com
-
-## Informações Que Coletamos
-
-A VythaLab foi projetada para armazenar grande parte das suas informações localmente no seu dispositivo. Dependendo de como você usa o aplicativo, podemos coletar ou tratar as seguintes categorias de informações:
-
-### Dados de Perfil e Fitness
-
-- Nome ou nome de exibição.
-- Idade, sexo, altura, peso, percentual de gordura corporal, objetivos, nível de atividade e plano selecionado.
-- Sessões de treino, rotinas, seleção de exercícios, agenda semanal de treinos, progresso de treino ativo e histórico de treinos.
-- Nomes de hábitos, categorias de hábitos, configurações de lembrete, dias selecionados, registros de conclusão e informações de sequência.
-- Registros nutricionais, descrições de refeições, calorias, macronutrientes, fibras, planos alimentares e sugestões de refeições geradas por IA.
-- Contagem de passos a partir dos sensores de atividade do seu dispositivo, se você conceder permissão de reconhecimento de atividade.
-- Duração do sono informada manualmente.
-
-Algumas dessas informações podem ser consideradas dados de saúde, biométricos ou dados pessoais sensíveis de acordo com leis de privacidade.
-
-### Dados do Dispositivo, Aplicativo e Permissões
-
-Podemos tratar dados técnicos necessários para operar o aplicativo, como:
-
-- Status das permissões do dispositivo para notificações e reconhecimento de atividade.
-- Informações de fuso horário local usadas para agendar lembretes.
-- Estado do aplicativo, preferências, configuração de modo privacidade, configurações de notificações e registros de armazenamento local.
-- Metadados técnicos gerados quando o aplicativo chama Firebase Cloud Functions ou outra infraestrutura do aplicativo, como metadados de requisição que podem ser tratados por prestadores de serviço para segurança, depuração, prevenção de abuso e entrega do serviço.
-
-### Dados de Prompts de IA
-
-Quando você usa recursos de IA, o texto e as entradas estruturadas necessárias para o recurso podem ser enviados ao nosso backend e a provedores de IA. Exemplos incluem:
-
-- Descrições de alimentos usadas para estimar macros.
-- Detalhes da refeição atual e calorias-alvo usados para sugerir substituições.
-- Metas nutricionais usadas para recalcular planos alimentares.
-- Objetivos de treino, músculos-alvo, equipamentos disponíveis e listas de exercícios disponíveis usadas para gerar rotinas.
-
-Não insira em prompts de IA informações que você não deseja que sejam tratadas por infraestrutura de IA de terceiros.
-
-## Como Usamos as Informações
-
-Usamos as informações para:
-
-- Fornecer rastreamento nutricional, estimativas de macros, planos alimentares e substituições de refeições.
-- Fornecer planejamento de treinos, criação de rotinas, rastreamento de treino ativo e resumos de performance.
-- Fornecer rastreamento de hábitos, relatórios semanais e lembretes locais.
-- Exibir biométricas, como passos e sono informado manualmente.
-- Armazenar suas configurações e preferências.
-- Melhorar a confiabilidade, segurança e funcionalidade do aplicativo.
-- Responder a solicitações de suporte, privacidade ou obrigações legais.
-
-Não usamos seus dados para tomar decisões que produzam efeitos legais ou efeitos igualmente significativos. As respostas de IA são informativas e devem ser revisadas por você antes de qualquer uso.
-
-## Armazenamento Local
-
-A VythaLab armazena dados do aplicativo no seu dispositivo usando armazenamento local, como SharedPreferences e SQLite. Isso inclui configurações de perfil, registros nutricionais, planos alimentares, hábitos, treinos, agendas e preferências locais do aplicativo.
-
-Os dados locais permanecem no seu dispositivo até que você os exclua pelo aplicativo, exclua registros individuais, limpe os dados do aplicativo pelo sistema operacional ou desinstale o aplicativo. Se você fizer backup do dispositivo pelo sistema operacional ou por um provedor de backup de terceiros, seus dados locais do aplicativo podem ser incluídos nesse backup conforme suas configurações de backup.
-
-## Tratamento em Nuvem e Prestadores de Serviço
-
-A VythaLab usa infraestrutura Firebase e Google Cloud para inicialização do aplicativo, segurança e Cloud Functions chamáveis. Os recursos de IA são processados por Firebase Cloud Functions e por um provedor de IA usando a API da DeepSeek.
-
-Na implementação atual, não armazenamos intencionalmente prompts de IA ou respostas de IA em um banco de dados em nuvem. No entanto, prestadores de serviço podem tratar e reter logs técnicos ou metadados de requisição conforme suas próprias políticas e obrigações legais.
-
-Prestadores de serviço podem incluir:
-
-- Serviços Google Firebase e Google Cloud.
-- DeepSeek ou provedores compatíveis de API de IA usados para geração de nutrição e treinos.
-- Provedores de sistema operacional móvel e lojas de aplicativos.
-
-Esses provedores podem tratar informações em países diferentes do seu país de residência.
-
-## Notificações
-
-A VythaLab atualmente usa notificações locais para lembretes de hábitos. Os agendamentos de lembretes são configurados no seu dispositivo. O aplicativo pode solicitar permissões de notificação, alarme exato, vibração e inicialização após reinício do dispositivo para que os lembretes apareçam no horário solicitado e continuem funcionando após reinicialização.
-
-Se versões futuras adicionarem notificações push em nuvem, esta política deverá ser atualizada para descrever tokens de push, entrega de notificações em nuvem e prestadores de serviço relacionados.
-
-## Reconhecimento de Atividade e Biométricas
-
-Se você conceder permissão de reconhecimento de atividade, a VythaLab lê dados de contagem de passos das APIs de pedômetro do seu dispositivo para calcular seus passos diários. Os dados de sono são inseridos manualmente por você. A VythaLab atualmente não coleta dados contínuos de frequência cardíaca, rotas de localização por GPS, imagens da câmera ou gravações de microfone como parte dos recursos rastreados descritos nesta política.
-
-## Compartilhamento de Informações
-
-Não vendemos suas informações pessoais.
-
-Podemos compartilhar ou divulgar informações:
-
-- Com prestadores de serviço que ajudam a operar o aplicativo, funções em nuvem, sistemas de segurança e recursos de IA.
-- Quando você envia dados intencionalmente para um recurso de IA.
-- Se exigido por lei, regulamento, processo legal ou solicitação governamental válida.
-- Para proteger direitos, segurança e integridade de usuários, da VythaLab ou de terceiros.
-- Em conexão com fusão, aquisição, financiamento, reestruturação ou venda de ativos, sujeito a proteções apropriadas.
-
-Atualmente, não usamos redes de publicidade de terceiros no aplicativo.
-
-## Suas Escolhas
-
-Você pode:
-
-- Recusar ou revogar a permissão de notificações nas configurações do dispositivo.
-- Recusar ou revogar a permissão de reconhecimento de atividade nas configurações do dispositivo.
-- Evitar o uso de recursos de IA caso não queira que prompts ou entradas relacionadas sejam enviados a provedores de nuvem e IA.
-- Editar ou excluir registros locais onde o aplicativo oferece controles.
-- Exportar dados locais compatíveis do estado do aplicativo na área de perfil/privacidade.
-- Limpar dados locais pelo aplicativo onde disponível, pelas configurações do sistema operacional ou desinstalando o aplicativo.
-
-Alguns registros locais em SQLite, como treinos ou hábitos, podem exigir o uso dos controles de exclusão dentro do aplicativo ou a limpeza/desinstalação do aplicativo para remoção completa.
-
-## Retenção de Dados
-
-Os dados locais do aplicativo são mantidos no seu dispositivo até que você os exclua, limpe os dados do aplicativo ou desinstale o aplicativo.
-
-Cloud Functions e provedores de IA podem reter registros técnicos limitados, logs ou metadados de requisição para segurança, depuração, prevenção de abuso, conformidade legal e operação do serviço. Os prazos de retenção são controlados pelo respectivo provedor, salvo se configurarmos de outra forma.
-
-## Segurança
-
-Usamos salvaguardas técnicas e organizacionais razoáveis e apropriadas para um aplicativo de bem-estar, incluindo Firebase App Check para Cloud Functions protegidas. Nenhum método de transmissão ou armazenamento é completamente seguro, e não podemos garantir segurança absoluta.
-
-Você é responsável por proteger o acesso ao seu dispositivo, backups do dispositivo e quaisquer contas ou sistemas usados para armazenar ou sincronizar seus dados.
-
-## Transferências Internacionais
-
-Suas informações podem ser tratadas nos Estados Unidos, no Brasil ou em outros países onde nossos prestadores de serviço operam. Esses países podem ter leis de proteção de dados diferentes das leis da sua jurisdição.
-
-## Bases Legais e Direitos de Privacidade
-
-Dependendo de onde você mora, podemos tratar suas informações pessoais com base em:
-
-- Seu consentimento, como quando você concede permissões ou envia prompts de IA.
-- Execução dos serviços do aplicativo que você solicita.
-- Interesses legítimos, como segurança, depuração, prevenção de fraude e melhoria do serviço.
-- Obrigações legais.
-
-Se leis de privacidade como LGPD, GDPR, CCPA/CPRA ou leis semelhantes se aplicarem a você, você pode ter direitos de solicitar acesso, confirmação de tratamento, correção, exclusão, portabilidade, informações sobre compartilhamento, restrição, oposição ou retirada de consentimento.
-
-Para fazer uma solicitação de privacidade, entre em contato conosco em privacy@vythalab.com. Podemos precisar verificar sua solicitação antes de responder. Algumas solicitações podem ser limitadas quando os dados estão armazenados apenas no seu dispositivo e não temos acesso a eles.
-
-## Privacidade de Crianças
-
-A VythaLab não é destinada a crianças menores de 13 anos, ou idade superior quando exigida pela legislação local. Não coletamos intencionalmente informações pessoais de crianças. Se você acredita que uma criança forneceu informações pessoais pelo aplicativo, entre em contato conosco para que possamos tomar as medidas apropriadas.
-
-## Aviso Sobre Saúde e Uso Médico
-
-Estimativas nutricionais, sugestões de refeições, sugestões de treino, lembretes de hábitos, pontuações de prontidão e resumos de performance são informativos. Eles podem ser incompletos, imprecisos ou inadequados para suas circunstâncias individuais de saúde. Consulte um profissional de saúde antes de fazer mudanças significativas em dieta, exercício, sono, medicação ou rotinas de saúde.
-
-## Alterações Nesta Política
-
-Podemos atualizar esta Política de Privacidade de tempos em tempos. Quando fizermos alterações, atualizaremos a data de "Última atualização" acima. Se as alterações forem relevantes, poderemos fornecer aviso adicional no aplicativo ou por outro meio apropriado.
-
-## Contato
-
-Para dúvidas, solicitações ou preocupações sobre esta Política de Privacidade, entre em contato:
-
-Privacidade VythaLab  
-Email: contato@vythalab.com.br
-
-
-VythaLab Privacy  
-Email: privacy@vythalab.com
+This project is configured as a private package (`publish_to: 'none'`).
