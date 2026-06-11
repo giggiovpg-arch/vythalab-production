@@ -1,227 +1,303 @@
 # Vytha Lab
 
-Vytha Lab is a comprehensive, multi-platform health and fitness tracking application built with Flutter. It integrates various wellness features including workout tracking, AI-powered meal planning, biometric data monitoring, and daily habit tracking.
+Vytha Lab is a Flutter health, training, nutrition, habit, and longevity app.
+The app combines FlutterFlow-generated foundations with custom Dart services,
+local persistence, local notifications, AI-assisted coaching flows, and AdMob
+placements.
 
-## 📚 Menu
+Last updated: 2026-06-11
 
-*   [Key Features](#key-features)
-*   [Technology Stack](#technology-stack)
-*   [Project Structure](#project-structure)
-*   [Privacy & Terms](#privacy-and-terms)
-    *   [Privacy Policy Draft](#privacy-policy-draft)
-    *   [Terms of Use](#terms-of-use)
-*   [Utility Scripts](#utility-scripts)
-*   [License](#license)
+## Contents
 
-<a id="key-features"></a>
+- [Current Features](#current-features)
+- [Architecture](#architecture)
+- [Data and Persistence](#data-and-persistence)
+- [Notifications](#notifications)
+- [Ads](#ads)
+- [AI Services](#ai-services)
+- [Project Layout](#project-layout)
+- [Run and Verify](#run-and-verify)
+- [Privacy and Release Notes](#privacy-and-release-notes)
+- [License](#license)
 
-## 🚀 Key Features
+## Current Features
 
-*   **Dashboard & Daily Tracking**: A central hub (`dashboard_hoje`) for an overview of daily progress.
-*   **Workout & Performance**:
-    *   **Workout Tracker**: Track active workouts and view exercise history.
-    *   **Routine Builder**: Create custom workout routines.
-    *   **Exercise Library**: A database of exercises.
-    *   **Performance Hub**: Monitor fitness progression and metrics.
-    *   **Yoga**: Specialized tracking for yoga sessions.
-*   **Nutrition & Diet**:
-    *   **AI Meal Planner**: Generate meal plans utilizing AI.
-    *   **AI Macro Tracker**: Track and analyze macronutrient intake.
-*   **Health & Biometrics**:
-    *   **Biometrics Dashboard**: Track vital health metrics and measurements.
-    *   **Evolution Progress**: Visualize physical changes over time.
-    *   **Pedometer Integration**: Track daily steps directly via device sensors.
-*   **Habit Tracking**: Local notifications and habit reminders to keep users on track.
-*   **User Profile**: Comprehensive user data management and onboarding flow (`onboarding_glitch_intro`).
+### Home and Daily Flow
 
-<a id="technology-stack"></a>
+- `DashboardHojeWidget` is the main daily dashboard.
+- Shows the VythaLab header, greeting, consistency/readiness style summaries,
+  nutrition progress, quick actions, and the daily checklist.
+- The daily checklist includes normal daily items plus scheduled tasks from
+  `Calendario` when the current weekday matches the task day.
+- Scheduled checklist items can create local reminders for that exact weekly
+  task.
 
-## 🛠️ Technology Stack
+### Calendario
 
-*   **Frontend Framework**: Flutter (Dart)
-*   **State Management & Routing**: `provider`, `go_router`
-*   **Local Database**: SQLite (`sqflite`) for on-device data storage.
-*   **Backend & Cloud Services**: Firebase (Authentication, Cloud Functions).
-*   **UI/UX**: Custom components, `flutter_animate`, `fl_chart` for data visualization, `lottie` for animations, and custom shaders.
-*   **Native Integrations**: `pedometer`, `flutter_local_notifications`, `permission_handler`, `url_launcher`.
-*   **Architecture**: Originates from/utilizes FlutterFlow patterns (as seen in `lib/flutter_flow/`).
+- Dedicated `CalendarioWidget` page in the bottom menu.
+- Replaces the old "Minha Semana" block that previously lived inside Treino.
+- Supports multiple tasks per weekday.
+- Task types currently include workout routines, yoga sessions, corrida, and
+  descanso.
+- Weekly tasks persist across page changes and app restarts through
+  `WeeklyScheduleService`.
+- The same weekly data feeds both the Calendario planning UI and the Home
+  checklist for the matching weekday.
 
-<a id="project-structure"></a>
+### Treino and Performance
 
-## 📂 Project Structure
+- Workout dashboard: `WorkoutTrackerWidget`.
+- Active workout tracking: `ActiveWorkoutWidget`.
+- Exercise library: `ExerciseLibraryWidget`.
+- Routine creation and editing: `RoutineBuilderWidget`.
+- AI routine creation: `AiRoutineCreatorWidget`.
+- Performance overview: `PerformanceHubWidget`.
+- Workout state is backed by SQLite models/repositories under
+  `lib/backend/sqlite/`.
+
+### Yoga and Mobility
+
+- Yoga dashboard: `YogaWidget`.
+- Session library and session details.
+- Active timed yoga session flow.
+- Pose library.
+- AI yoga flow generator.
+
+### Corrida
+
+- Running dashboard: `RunningDashboardScreen`.
+- Active run tracking: `ActiveRunScreen`.
+- Run history and run detail screens.
+- Route preview components.
+- Local running repository and tracker service live under `lib/services/`.
+
+### Nutrition and Macros
+
+- AI macro tracker: `AIMacroTrackerWidget`.
+- AI meal planner: `AIMealPlannerWidget`.
+- Macro goals, macro logs, meal plan entries, and daily nutrition totals are
+  stored in `VythaAppState`.
+- Fitness tool calculators can save derived macro targets through
+  `FitnessToolsRepository`.
+
+### Ferramentas
+
+- Tool hub: `FerramentasWidget`.
+- TDEE calculator.
+- Macro calculator.
+- Readiness score.
+- Cutting/bulking calculator.
+- AI diet analysis.
+- AI workout generator.
+
+### Longevidade
+
+- Biological age screen.
+- Longevity dashboard.
+- Resilience score card.
+- Longevity cards are free features in the current build.
+
+### Habits and Local Reminders
+
+- Habit dashboard, habit templates, habit create/edit flow, and weekly habit
+  report live under `lib/pages/local_notifications_habits/`.
+- Habit data is managed by `HabitState` and SQLite habit storage.
+- Habit reminders use local notifications only.
+
+### Biometrics, Profile, and Onboarding
+
+- Biometrics dashboard with recovery, sleep, chart, and metric widgets.
+- Evolution/progress page for body and progress tracking.
+- User profile data and privacy/export controls.
+- Onboarding flow: `OnboardingGlitchIntroWidget`.
+- Pedometer support is provided by `PedometerService`.
+
+## Architecture
+
+The app is a Flutter application with a FlutterFlow base and custom feature
+modules layered on top.
+
+### App Entry Point
+
+- `lib/main.dart` initializes Flutter, Mobile Ads, FlutterFlow theme state,
+  global app state, habits, weekly task reminders, and providers.
+- `MaterialApp.router` uses the FlutterFlow/GoRouter navigation setup.
+- The app shell wraps screens in the custom VythaLab header and
+  `WavyBackground`.
+
+### State Management
+
+- `provider` is the main state-management layer.
+- `VythaAppState` holds profile, onboarding, privacy settings, macro logs,
+  meal plan entries, saved macro targets, daily checks, and app-level totals.
+- `HabitState` manages habit records and reminder state.
+- `WorkoutActiveState` manages active workout state.
+- `PedometerService` and `RunningTrackerService` are registered as
+  `ChangeNotifier` services.
+- `WeeklyScheduleService.changes` is a `ValueNotifier` used to refresh pages
+  that depend on the weekly plan.
+
+### Routing
+
+Routes are registered in `lib/flutter_flow/nav/nav.dart` and exported through
+`lib/index.dart`. Important route groups include:
+
+- Home: `DashboardHojeWidget`.
+- Nutrition: AI meal planner and AI macro tracker.
+- Training: workout tracker, exercise library, routine builder, active workout.
+- Calendar: `CalendarioWidget`.
+- Tools: Ferramentas and calculator/detail screens.
+- Habits: dashboard, templates, reports, create/edit.
+- Health: biometrics, evolution, biological age/longevity.
+- Yoga: dashboard, sessions, active session, poses, AI flow.
+- Running: dashboard, active run, history, detail.
+
+### UI Layer
+
+- Reusable widgets live in `lib/components/`.
+- Feature screens live in `lib/pages/`.
+- FlutterFlow utilities, theme, icons, forms, and generated navigation helpers
+  live in `lib/flutter_flow/`.
+- Shared visual surfaces include `WavyBackground`,
+  `VythaVioletSurface`, metric cards, daily check rows, ad widgets, and bottom
+  navigation.
+
+## Data and Persistence
+
+The app is local-first. Most user data is stored on the device.
+
+- `SharedPreferences`:
+  - `VythaAppState` JSON snapshot.
+  - Weekly schedule tasks and task reminders.
+  - Some feature settings and cached local values.
+- SQLite via `sqflite`:
+  - Workout models and workout history.
+  - Habit models, completions, and reminder metadata.
+- Running:
+  - `RunningLocalRepository` stores local running sessions.
+  - `RunningTrackerService` manages active run state.
+- Fitness tools:
+  - Calculator results and saved macro targets are handled by
+    `FitnessToolsRepository`.
+- Longevity:
+  - Longevity calculations and storage are split between
+    `LongevityEngine`, `LongevityRepository`, and `LongevityAiService`.
+
+## Notifications
+
+Notifications are local device notifications, not remote push.
+
+- Main service: `lib/services/notification_service.dart`.
+- Packages: `flutter_local_notifications`, `timezone`, and
+  `flutter_timezone`.
+- Habit reminders are scheduled locally.
+- Calendar task reminders are scheduled weekly for a specific weekday and time.
+- On startup, `WeeklyScheduleService.rescheduleActiveTaskReminders()` restores
+  active calendar reminders.
+- Android uses notification, boot, exact-alarm, and scheduled-notification
+  receivers required by `flutter_local_notifications`.
+- iOS uses local notification permission prompts from
+  `flutter_local_notifications`.
+
+## Ads
+
+AdMob support is initialized through `initializeMobileAds()` in `main.dart`.
+
+- Ad placement policy lives in `lib/services/ad_policy_service.dart`.
+- Ad unit selection lives in `lib/services/admob_ad_unit_ids.dart`.
+- Debug and profile builds always use Google test ad unit IDs.
+- Release builds use configured Android IDs when present and fall back to test
+  IDs when an ID is missing.
+- Android app ID is injected from `android/local.properties` with a safe test
+  fallback in Gradle.
+- iOS ad unit IDs are currently unset and should be configured before an iOS
+  ad-enabled release.
+- `AdPlaceholderWidget` currently loads real banner/native ad widgets for
+  supported inline placements and uses fallback UI while loading or on error.
+
+## AI Services
+
+AI-assisted features are routed through service classes rather than directly
+from widgets.
+
+- `DeepseekApiService` supports macro, meal, diet, workout, and related AI
+  flows.
+- `RunningAiAnalysisService` supports running analysis.
+- `LongevityAiService` supports longevity-oriented AI output.
+- AI features should avoid sending unnecessary identifiers or unrelated health
+  data.
+
+## Project Layout
 
 ```text
 vytha_lab/
-├── android/               # Android native project files
-├── ios/                   # iOS native project files
-├── web/                   # Web project files
-├── functions/             # Firebase Cloud Functions (TypeScript)
-├── lib/                   # Main Dart source code
-│   ├── backend/           # Local SQLite database configurations
-│   ├── components/        # Reusable UI widgets (cards, charts, buttons, etc.)
-│   ├── flutter_flow/      # Base utilities and theme files from FlutterFlow
-│   ├── models/            # Data models (e.g., biometrics_snapshot)
-│   ├── pages/             # App screens (Dashboard, Meal Planner, Workout Tracker, etc.)
-│   ├── services/          # Business logic and external service integrations
-│   ├── app_state.dart     # Global application state
-│   └── main.dart          # Application entry point
-├── assets/                # Fonts, images, videos, audios, and JSON data
-└── python_scripts         # Various utility scripts (e.g., fix_appbars.py, patch_onboarding.py) for codebase maintenance
+|-- android/                       # Android native project and Gradle config
+|-- ios/                           # iOS native project
+|-- assets/                        # Fonts, images, videos, audio, PDFs
+|-- lib/
+|   |-- app_state.dart             # Global app state and macro/profile data
+|   |-- backend/sqlite/            # SQLite models, DB access, active workout/habits
+|   |-- components/                # Reusable UI widgets and shared surfaces
+|   |-- flutter_flow/              # FlutterFlow theme, utilities, routing helpers
+|   |-- models/                    # Feature models and DTOs
+|   |-- pages/                     # Feature screens
+|   |   |-- biological_age/
+|   |   |-- calendario/
+|   |   |-- corrida/
+|   |   |-- ferramentas/
+|   |   |-- local_notifications_habits/
+|   |   |-- workout_tracker/
+|   |   `-- yoga/
+|   |-- services/                  # Business logic, ads, AI, notifications, repositories
+|   `-- main.dart                  # App bootstrap
+|-- test/                          # Flutter tests
+|-- PRIVACY.md                     # Current privacy policy draft
+`-- pubspec.yaml                   # Dependencies, assets, package metadata
 ```
 
-<a id="privacy-and-terms"></a>
+## Run and Verify
 
-## 🔒 Privacy & Terms
+Install dependencies:
 
-Vytha Lab handles personal wellness information, so privacy and responsible use should be treated as core product requirements. This section is a project-level notice and should be replaced with a reviewed Privacy Policy and Terms of Use before any public release.
+```bash
+flutter pub get
+```
 
-<a id="privacy-policy-draft"></a>
+Run the app:
 
-### Privacy Policy Draft
+```bash
+flutter run
+```
 
-This draft describes the intended privacy practices for Vytha Lab. It should be reviewed against the actual production build, connected services, app-store disclosures, and applicable laws before release. Public builds should provide an official privacy-policy URL, support contact, legal entity name, and in-app access to the final policy.
+Analyze:
 
-#### Scope
+```bash
+flutter analyze
+```
 
-*   **Covered services**: This policy applies to the Vytha Lab Flutter app, local app storage, Firebase-backed features, Cloud Functions, AI-assisted nutrition features, notification features, pedometer integration, and related support workflows.
-*   **Responsible party**: The final public policy should identify the developer, company, or legal entity responsible for user data.
-*   **Health-data caution**: Vytha Lab handles wellness, fitness, nutrition, and biometric information. Do not describe the app as HIPAA-compliant, medically certified, or suitable for clinical use unless that status has been legally and technically validated.
+Run tests:
 
-#### Information Vytha Lab May Collect
+```bash
+flutter test
+```
 
-*   **Account and profile data**: Name, email address, authentication identifiers, display preferences, onboarding responses, goals, biological or lifestyle attributes the user chooses to provide, and profile settings.
-*   **Fitness and workout data**: Exercise history, workout sessions, custom routines, sets, reps, weights, duration, performance metrics, yoga sessions, recovery notes, and training preferences.
-*   **Nutrition and AI inputs**: Meal-planning prompts, food preferences, allergies or restrictions entered by the user, macro targets, food logs, generated meal plans, and nutrition-analysis history.
-*   **Biometric and progress data**: Body measurements, progress snapshots, evolution records, weight or composition entries, health-related notes, and progress photos if enabled by the app.
-*   **Habit and reminder data**: Habit names, completion history, streaks, reminder schedules, local notification preferences, and wellness routines.
-*   **Device and sensor data**: Step-count information from pedometer sensors, permission status, timezone data, device identifiers, platform details, and other data required for native integrations.
-*   **Technical and diagnostic data**: App version, crash logs, performance diagnostics, Cloud Function logs, security events, and basic usage events if analytics or crash reporting are enabled.
-*   **Support communications**: Messages, screenshots, bug reports, contact details, or other information users provide when requesting help.
+Build a debug APK:
 
-#### How Data Is Collected
+```bash
+flutter build apk --debug
+```
 
-*   **Direct user input**: Data entered through onboarding, profile forms, trackers, planners, dashboards, and settings.
-*   **Device permissions**: Data accessed through platform permissions such as sensors, notifications, or external-link handling. Users can manage permissions in their device settings.
-*   **Generated data**: Calculations, summaries, charts, recommendations, and AI outputs created from user activity or user-provided inputs.
-*   **Service integrations**: Data processed through Firebase, Cloud Functions, AI providers, analytics, crash reporting, or other configured third-party services.
+## Privacy and Release Notes
 
-#### How Data May Be Used
+- The current privacy policy draft is in `PRIVACY.md`.
+- Keep `PRIVACY.md`, app-store disclosures, permission prompts, AdMob usage,
+  AI data flow, and actual app behavior aligned before release.
+- The app is a wellness and fitness tool. It is not a medical device and should
+  not be described as providing diagnosis, treatment, or emergency care.
+- Before publishing, verify production AdMob IDs, iOS AdMob configuration,
+  notification permissions, location/activity permissions, AI provider
+  disclosures, and any account/data deletion requirements.
 
-*   **Core app functionality**: Authenticate users, store preferences, track workouts, manage routines, display dashboards, calculate progress, and sync cloud-backed features.
-*   **Personalization**: Adapt goals, nutrition suggestions, habit reminders, performance summaries, and UI content to user-provided preferences.
-*   **AI-assisted features**: Generate meal plans, macro feedback, summaries, and wellness suggestions from the information users choose to submit.
-*   **Notifications**: Schedule habit reminders, workout prompts, and local alerts selected by the user.
-*   **Safety, debugging, and maintenance**: Diagnose issues, prevent abuse, protect accounts, maintain service reliability, and fix defects.
-*   **Compliance**: Respond to lawful requests, enforce terms, and meet legal or regulatory obligations where applicable.
-*   **Product improvement**: Analyze aggregated or de-identified information where possible to improve features, performance, and usability.
+## License
 
-#### Sensitive Health Data Commitments
-
-*   **Data minimization**: Collect only the wellness, fitness, biometric, nutrition, and sensor data needed for the features a user chooses to use.
-*   **Consent before sensitive processing**: Obtain clear consent before collecting or sharing sensitive health data, especially when a feature uses device sensors, cloud processing, or third-party AI.
-*   **No sale of health data**: Health, biometric, nutrition, and workout data should not be sold to data brokers or used for targeted advertising.
-*   **No unexpected sharing**: Sensitive data should not be shared for marketing, advertising, model training, or unrelated product purposes unless the final policy clearly discloses it and the user gives explicit consent.
-*   **Just-in-time notices**: Public builds should explain sensitive collection at the moment it occurs, not only inside this README or a long policy page.
-
-#### AI and Cloud Processing
-
-*   **AI data flow**: AI-powered meal planning and macro analysis may send user-provided goals, preferences, nutrition details, and related context to an AI service to generate results.
-*   **Provider disclosure**: Public builds should identify each AI provider, what data is sent, whether the provider stores prompts or outputs, whether humans may review data, and whether data may be used for model training.
-*   **Limited AI context**: AI requests should avoid unnecessary identifiers, account data, photos, or biometric details unless those inputs are required for the selected feature.
-*   **User review**: AI output should be treated as a suggestion. Users remain responsible for checking nutrition, allergy, medical, and safety implications before acting on it.
-
-#### Data Sharing
-
-*   **Service providers**: Data may be processed by Firebase, hosting providers, authentication providers, Cloud Functions, AI vendors, analytics tools, crash reporting tools, or notification infrastructure used to operate the app.
-*   **Legal and safety needs**: Data may be disclosed when required by law, to protect users, to investigate abuse, or to defend the rights and security of the app.
-*   **Business changes**: If ownership of the app changes, user data may be transferred as part of that transaction, subject to notice and applicable law.
-*   **No public posting by default**: Private health, nutrition, workout, and biometric records should not be made public unless the user intentionally chooses a sharing feature.
-*   **Third-party terms**: Third-party services may process data under their own terms and privacy policies. Public builds should link to those providers where practical.
-
-#### Storage, Retention, and Deletion
-
-*   **Local storage**: Some records are stored on the user's device using SQLite or platform storage. Local data may remain on the device until the user deletes it, clears app data, or uninstalls the app.
-*   **Cloud storage**: Firebase-backed features may store account, profile, function, or synced app data in cloud systems.
-*   **Retention principle**: Data should be retained only for as long as needed to provide the app, comply with legal obligations, resolve disputes, maintain backups, or support security and debugging.
-*   **Deletion requests**: Public builds should provide a clear way to request account deletion, cloud-data deletion, and correction of inaccurate personal data.
-*   **Backup limits**: Deleted data may remain in encrypted backups or logs for a limited period before being purged according to the provider's retention process.
-
-#### User Choices and Rights
-
-*   **Access and correction**: Users should be able to view and update profile, goal, workout, nutrition, habit, and biometric information where the app supports it.
-*   **Permission controls**: Users can revoke sensor, notification, and other platform permissions through device settings. Some features may stop working when permissions are disabled.
-*   **AI controls**: Public builds should disclose whether AI features are optional and how users can avoid sending sensitive data to AI services.
-*   **Analytics choices**: If non-essential analytics are enabled, public builds should explain opt-out controls where required.
-*   **Legal rights**: Depending on location, users may have rights to access, delete, correct, export, restrict, or object to processing of personal information. The final policy should document how to exercise those rights.
-
-#### Security
-
-*   **Transport security**: Cloud traffic should use secure transport such as HTTPS/TLS.
-*   **Access controls**: Cloud data should be protected with appropriate authentication, authorization rules, least-privilege service accounts, and secure secret management.
-*   **Operational safeguards**: Production releases should include dependency review, logging hygiene, crash-report review, Firebase security-rule review, and incident-response procedures.
-*   **No absolute guarantee**: No app can guarantee perfect security, so the final policy should explain security practices without overpromising.
-
-#### Children and Minors
-
-*   **Age limits**: Vytha Lab is not intended for children under 13, or under the minimum age required by local law, unless a parent or guardian provides any required consent.
-*   **Minor data**: Public builds that knowingly support minors should include age-appropriate notices, parental consent flows, and child-data deletion procedures.
-*   **Discovery of child data**: If the project owner learns that child data was collected without required consent, the data should be deleted or deactivated according to applicable law.
-
-#### International Data Processing
-
-*   **Cross-border processing**: Cloud providers, AI services, and support tools may process data in countries other than the user's country of residence.
-*   **Safeguards**: Public builds should describe applicable transfer safeguards, regional hosting choices, and provider commitments where required by law.
-
-#### Policy Changes
-
-*   **Updates**: The privacy policy should be updated whenever the app's data collection, sharing, AI processing, analytics, permissions, or service providers change.
-*   **Material changes**: If a change materially affects user privacy, users should receive clear notice and, where required, provide affirmative consent before the new use applies.
-*   **Consistency**: The README, in-app policy, app-store privacy labels, Google Play Data Safety form, consent prompts, and actual app behavior should remain aligned.
-
-#### Release Checklist
-
-Before publishing Vytha Lab, add or verify:
-
-*   Official legal entity name, contact email, and support/data-request process.
-*   Final Privacy Policy URL available in the app and app-store listings.
-*   Provider list for Firebase, AI services, analytics, crash reporting, and any SDKs.
-*   Exact data-retention schedule for local data, cloud data, logs, and backups.
-*   Account deletion and data deletion flow.
-*   App Store privacy details and Google Play Data Safety disclosures matching the real build.
-*   In-app consent prompts for health data, sensor access, AI processing, and optional analytics.
-
-<a id="terms-of-use"></a>
-
-### Terms of Use
-
-These draft terms describe the expected rules for using Vytha Lab. They are intended for product documentation and should be reviewed before being presented to end users.
-
-*   **Acceptance of terms**: By accessing or using Vytha Lab, users agree to use the app in accordance with these terms and any additional notices shown in the app.
-*   **Wellness tool only**: Vytha Lab provides fitness, nutrition, habit, and wellness tracking support. It does not provide medical advice, diagnosis, treatment, emergency care, or a substitute for professional judgment.
-*   **Professional guidance**: Users should consult qualified health professionals before making significant changes to exercise, diet, medication, treatment, or recovery plans, especially if they have existing health conditions.
-*   **User responsibility**: Users are responsible for the information they enter, the goals they set, and how they apply workout, nutrition, habit, or AI-generated recommendations.
-*   **AI-generated content**: Meal plans, macro analysis, coaching text, or other AI-assisted outputs may be incomplete, inaccurate, or unsuitable for a user's specific medical, dietary, cultural, or personal needs. Users should verify recommendations before relying on them.
-*   **Account security**: Users are responsible for maintaining the confidentiality of their login credentials, device access, and any activity that occurs under their account.
-*   **Permitted use**: Users may not misuse the app, attempt to disrupt its services, reverse engineer protected portions of the app, upload unlawful or harmful content, or use the app in a way that violates applicable laws or third-party rights.
-*   **Health and sensor data**: Users authorize the app to process health, biometric, nutrition, workout, notification, and device-sensor data only for the features they choose to use, subject to the app's privacy notices and permission settings.
-*   **Notifications**: Habit reminders, workout prompts, and other notifications are convenience features. Users remain responsible for managing their schedules, safety, and device settings.
-*   **Third-party services**: Vytha Lab may rely on services such as Firebase, AI providers, analytics, crash reporting, device APIs, or external links. Those services may be governed by their own terms and privacy policies.
-*   **Intellectual property**: The app, codebase, design assets, trademarks, content, and documentation belong to their respective owners. No rights are granted except as expressly allowed by the project owner or applicable licenses.
-*   **Availability and changes**: Features may be changed, suspended, or removed during development. The app may contain bugs, incomplete features, or experimental behavior.
-*   **No guarantee of results**: Fitness, nutrition, and wellness outcomes vary by individual, and the app does not guarantee specific results, performance improvements, health outcomes, or uninterrupted availability.
-*   **Limitation of liability**: To the fullest extent permitted by law, the project owner and contributors are not responsible for indirect, incidental, consequential, or health-related damages arising from use of the app.
-*   **Termination**: Access may be suspended or removed if a user violates these terms, creates security risk, misuses the service, or if the app is discontinued.
-*   **Contact and legal review**: Public builds should include an official support contact, governing law, dispute-resolution process, and legally reviewed Privacy Policy and Terms of Use.
-*   **Private package**: This repository is configured as a private package and is not currently licensed for public redistribution.
-
-<a id="utility-scripts"></a>
-
-## 📜 Utility Scripts
-
-The project root contains several Python scripts (e.g., `fix_appbars.py`, `patch_onboarding.py`, `wrap_scaffold.py`). These are custom utility scripts likely used to perform bulk modifications, fix UI inconsistencies, or patch specific widget structures across the codebase. Run these with caution and ensure you review changes via Git.
-
-<a id="license"></a>
-
-## 📝 License
-
-This project is configured as a private package (`publish_to: 'none'`).
+This project is configured as a private package with `publish_to: 'none'`.
